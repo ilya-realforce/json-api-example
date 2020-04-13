@@ -1,0 +1,306 @@
+swagger: '2.0'
+info:
+  description: ''
+  version: 1.0.0
+  title: 'Swagger JsonApi'
+  termsOfService: 'http://swagger.io/terms/'
+  license:
+    name: 'Apache 2.0'
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: localhost
+schemes:
+  - https
+  - http
+paths:
+  /books/:
+    get:
+      tags:
+        - books
+      summary: 'Book List'
+      operationId: listBook
+      produces:
+        - application/json
+      parameters: {  }
+      responses:
+        200:
+          description: 'successful operation'
+          schema:
+            type: object
+            properties:
+              jsonapi:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    example: '1.0'
+              links:
+                type: object
+                properties:
+                  self:
+                    type: string
+                    example: '/books?page[number]=1&page[size]=100'
+                  first:
+                    type: string
+                    example: '/books?page[number]=1&page[size]=100'
+                  last:
+                    type: string
+                    example: '/books?page[number]=1&page[size]=100'
+                  prev:
+                    type: string
+                    example: 'null'
+                  next:
+                    type: string
+                    example: 'null'
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      format: int64
+                      example: 12
+                    type:
+                      type: string
+                      example: books
+                    attributes:
+                      $ref: '#/definitions/Book'
+                    relationships:
+                      properties: {  }
+    post:
+      tags:
+        - books
+      summary: 'Add Book'
+      operationId: addBook
+      produces:
+        - application/json
+      parameters:
+        -
+          in: body
+          name: body
+          description: addBook
+          required: true
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: books
+                  attributes:
+                    $ref: '#/definitions/Book'
+                  relationships:
+                    properties: {  }
+      responses:
+        200:
+          description: 'successful operation'
+          schema:
+            type: object
+            properties:
+              jsonapi:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    example: '1.0'
+              links:
+                type: object
+                properties:
+                  self:
+                    type: string
+                    example: /books
+              data:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                    example: 12
+                  type:
+                    type: string
+                    example: books
+                  attributes:
+                    $ref: '#/definitions/Book'
+                  relationships:
+                    properties: {  }
+  '/books/{Book_id}':
+    patch:
+      tags:
+        - books
+      summary: 'Edit Book'
+      operationId: editBook
+      produces:
+        - application/json
+      parameters:
+        -
+          in: body
+          name: body
+          description: editBook
+          required: true
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                    example: 12
+                  type:
+                    type: string
+                    example: books
+                  attributes:
+                    $ref: '#/definitions/Book'
+                  relationships:
+                    properties: {  }
+        -
+          name: Book_id
+          in: path
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: 'successful operation'
+          schema:
+            type: object
+            properties:
+              jsonapi:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    example: '1.0'
+              links:
+                type: object
+                properties:
+                  self:
+                    type: string
+                    example: /books
+              data:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                    example: 12
+                  type:
+                    type: string
+                    example: books
+                  attributes:
+                    $ref: '#/definitions/Book'
+                  relationships:
+                    properties: {  }
+    delete:
+      tags:
+        - books
+      summary: 'Delete Book'
+      operationId: deleteBook
+      produces:
+        - application/json
+      parameters:
+        -
+          name: Book_id
+          in: path
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: 'successful operation'
+          schema:
+            type: object
+            properties:
+              jsonapi:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    example: '1.0'
+              links:
+                type: object
+                properties:
+                  self:
+                    type: string
+                    example: /books
+              data:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                    example: 12
+                  type:
+                    type: string
+                    example: books
+                  attributes:
+                    $ref: '#/definitions/Book'
+                  relationships:
+                    properties: {  }
+    get:
+      tags:
+        - books
+      summary: 'Get Book'
+      operationId: viewBook
+      produces:
+        - application/json
+      parameters:
+        -
+          name: Book_id
+          in: path
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: 'successful operation'
+          schema:
+            type: object
+            properties:
+              jsonapi:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    example: '1.0'
+              links:
+                type: object
+                properties:
+                  self:
+                    type: string
+                    example: /books
+              data:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                    example: 12
+                  type:
+                    type: string
+                    example: books
+                  attributes:
+                    $ref: '#/definitions/Book'
+                  relationships:
+                    properties: {  }
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
+definitions:
+  Book:
+    type: object
+    properties:
+      title:
+        type: string
+      isbn:
+        type: string
+      authors:
+        type: string
+externalDocs:
+  description: 'Find out more about Swagger'
+  url: 'http://swagger.io'
